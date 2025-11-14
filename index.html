@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HAUQALA 2025 | Arts Fest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg: #0d1117; --card: #161b22; --glass: rgba(30, 35, 42, 0.8); --accent: #58a6ff; --accent2: #4f80e0; --gold: #ffb400; --text: #c9d1d9; --text-primary: #f0f6fc; --shadow: 0 4px 16px rgba(0,0,0,0.5);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif; line-height: 1.6;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none;transition:.2s;} a:hover{color:var(--text-primary);}
+    .wrap{max-width:1240px;margin:0 auto;padding:0 20px;}
+    header{display:flex;justify-content:space-between;align-items:center;padding:20px 0;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .logo{width:50px;height:50px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--text-primary);box-shadow:0 0 10px rgba(88, 166, 255, 0.4);}
+    .brand h1{font-size:1.4rem;font-weight:700;color:var(--text-primary);margin:0;}
+    nav{display:flex;gap:4px;}
+    nav a{padding:8px 14px;border-radius:6px;font-weight:600;transition:.3s;color:var(--text);background:transparent;border:2px solid transparent;}
+    nav a:hover{color:var(--accent);} nav a.active{color:var(--accent);border-color:var(--accent);}
+    .menu-toggle{display:none;background:none;border:none;color:var(--accent);font-size:1.8rem;cursor:pointer;}
+    @media(max-width:900px){.menu-toggle{display:block;} nav{display:none;flex-direction:column;width:100%;background:var(--card);border:1px solid #282c34;border-radius:8px;margin-top:10px;padding:10px 0;} nav a{display:block;padding:10px 16px;text-align:center;} nav.open{display:flex;}}
+    .hero{display:grid;grid-template-columns:3fr 2fr;gap:50px;align-items:center;padding:80px 0;}
+    .hero-left h2{font-size:3.2rem;font-weight:800;line-height:1.2;margin-bottom:20px;color:var(--text-primary);}
+    .hero-left strong{color:var(--accent);display:inline;}
+    .hero-left p{opacity:0.8;margin-bottom:30px;font-size:1.1rem;}
+    .hero-right{position:relative;height:420px;border-radius:12px;overflow:hidden;background:var(--card);box-shadow:var(--shadow);}
+    .hero-right img{width:100%;height:100%;object-fit:cover;}
+    .cta .btn{display:inline-block;background-image:linear-gradient(45deg, var(--accent), var(--accent2));color:var(--text-primary);font-weight:700;padding:12px 25px;border:none;border-radius:6px;cursor:pointer;transition:.3s;box-shadow:0 4px 10px rgba(88, 166, 255, 0.3);text-decoration:none;}
+    .cta .btn:hover{transform:translateY(-2px);box-shadow:0 6px 15px rgba(88, 166, 255, 0.5);}
+    .cta .btn[style*="margin-left"]{background:var(--card);box-shadow:none;border:1px solid var(--accent);color:var(--accent);}
+    .cta .btn[style*="margin-left"]:hover{background:var(--accent);color:var(--text-primary);box-shadow:0 6px 15px rgba(88, 166, 255, 0.5);}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding:40px 0;}
+    .stat{background:var(--card);padding:25px;border-radius:10px;text-align:center;box-shadow:var(--shadow);border:1px solid #282c34;}
+    .stat .num{font-size:2.4rem;font-weight:800;color:var(--gold);}
+    .stat .label{font-size:0.95rem;opacity:0.9;font-weight:600;}
+    .contact{background:var(--card);border-top:1px solid #282c34;padding:40px 0;text-align:center;}
+    .social a{font-size:1.6rem;margin:0 15px;color:var(--text);transition:.3s;opacity:0.7;}
+    .social a:hover{color:var(--accent);opacity:1;transform:scale(1.1);}
+    @media(max-width:900px){.hero{grid-template-columns:1fr;gap:30px;padding:60px 0;}.hero-left h2{font-size:2.8rem;}header{flex-direction:column;align-items:flex-start;padding-bottom:10px;}nav{margin-top:15px;width:100%;justify-content:space-around;}nav a{margin:0 5px;padding:6px 10px;}}
+    @media(max-width:600px){.hero-left h2{font-size:2rem;}.stats{grid-template-columns:1fr;padding:20px 0;}.wrap{padding:0 15px;}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S4</div>
+        <div><h1>HAUQALA 2025</h1></div>
+      </div>
+      <button class="menu-toggle" id="menu-toggle">☰</button>
+      <nav id="nav-menu">
+        <a href="index.html" class="active">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html">Results</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div class="hero-left">
+        <h2>HAUQALA 2025<br><strong> Arts Fest</strong></h2>
+        <p>HAUQALA ‘25 is the official arts fest of Darunnajath Islamic Complex, proudly presented by the HAUQALA Friends. Rooted in the spirit of HAUQALA — meaning unity — this event reflects the harmony and brotherhood taught by Islam.</p>
+        <div class="cta">
+          <a href="results.html" class="btn">View Results</a>
+          <a href="gallery.html" class="btn" style="margin-left:12px;">Gallery</a>
+        </div>
+      </div>
+      
+       
+      </div>
+    </section>
+
+    <section class="stats wrap">
+      <div class="stat"><div class="num" style="color:var(--accent);">30+</div><div class="label">Total Programs</div></div>
+      <div class="stat"><div class="num">30+</div><div class="label">Participants</div></div>
+      <div class="stat"><div class="num" style="color:var(--gold);">2</div><div class="label">Major Cups</div></div>
+    </section>
+
+    <footer class="contact">
+      <div class="wrap">
+        <p>&copy; 2025 HAUQALA Arts Fest. All Rights Reserved.</p>
+        <div class="social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+  </script>
+</body>
+</html>
+                             

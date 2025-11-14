@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Gallery | HAUQALA 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* PROFESSIONAL COLOR PALETTE */
+      --bg: #0d1117; 
+      --card: #161b22; 
+      --glass: rgba(30, 35, 42, 0.8); 
+      --accent: #58a6ff; 
+      --accent2: #4f80e0; 
+      --gold: #ffb400; 
+      --text: #c9d1d9; 
+      --text-primary: #f0f6fc;
+      --shadow: 0 4px 16px rgba(0,0,0,0.5); 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none;transition:.2s;}
+    a:hover{color:var(--text-primary);}
+    
+    /* WRAPPER AND HEADER */
+    .wrap{max-width:1240px;margin:0 auto;padding:0 20px;}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .logo{
+      width:50px;height:50px;border-radius:6px;background:var(--accent);
+      display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--text-primary);
+      box-shadow:0 0 10px rgba(88, 166, 255, 0.4);
+    }
+    .brand h1{font-size:1.4rem;font-weight:700;color:var(--text-primary);margin:0;}
+
+    /* NAVIGATION */
+    nav{display:flex;gap:4px;}
+    nav a{
+      padding:8px 14px;border-radius:6px;
+      font-weight:600;transition:.3s;color:var(--text);
+      background:transparent;
+      border:2px solid transparent; 
+    }
+    nav a:hover{color:var(--accent);}
+    nav a.active{color:var(--accent);border-color:var(--accent);}
+
+    .section{padding:60px 0;}
+    .section h3{font-size:2.4rem;font-weight:800;margin-bottom:20px;color:var(--text-primary);}
+
+    /* GALLERY */
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;}
+    .card-img{
+        position:relative;
+        border-radius:8px;
+        overflow:hidden;
+        height:200px;
+        background:var(--card);
+        border:1px solid #282c34;
+        box-shadow:none;
+    }
+    .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+    .card-img:hover img{transform:scale(1.05);}
+
+    /* Search/Input Group */
+    .input-group{
+        display:flex;gap:12px;align-items:center;margin-bottom:20px;
+        background:var(--card);border-radius:8px;padding:8px 16px;
+        border:1px solid #282c34;
+    }
+    .search{
+        flex:1; padding:8px 0; border:none; outline:none; 
+        background:transparent; color:var(--text); font-size:16px;
+    }
+    .btn{
+        background:linear-gradient(90deg,var(--accent),var(--accent2));
+        color:var(--text-primary);
+        padding:8px 20px;
+        border:none;border-radius:6px;
+        font-weight:700;cursor:pointer;transition:.3s;
+        box-shadow:0 4px 10px rgba(88, 166, 255, 0.3);
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 15px rgba(88, 166, 255, 0.5);}
+
+    @media(max-width:900px){
+      header{flex-direction:column;align-items:flex-start;padding-bottom:10px;}
+      nav{margin-top:15px; width:100%; justify-content: space-around;}
+      nav a{margin:0 5px; padding: 6px 10px;}
+      .section{padding:40px 0;}
+      .section h3{font-size:2rem;}
+      .input-group{flex-direction:column; align-items: stretch;}
+      .input-group > div{margin-left:0 !important;}
+      .btn{width:100%;}
+    }
+
+    /* Tilt Card Styles (Integrated) */
+    :root{
+      --accent:58,166,255;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      padding:40px 0;
+      max-width:1300px;
+      width:100%;
+    }
+    .card{
+      position:relative;
+      height:200px;
+      border-radius:14px;
+      overflow:hidden;
+      perspective:1000px;
+      cursor:pointer;
+    }
+    .inner{
+      width:100%;
+      height:100%;
+      border-radius:inherit;
+      background:#111;
+      transition:transform 0.25s ease, box-shadow 0.3s;
+      transform-style:preserve-3d;
+      box-shadow:0 10px 25px rgba(0,0,0,0.6);
+    }
+    .inner img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transform:translateZ(40px) scale(1.06);
+      transition:transform 0.3s ease;
+    }
+    .shine{
+      position:absolute;
+      inset:0;
+      background:radial-gradient(600px 200px at 50% 50%, rgba(var(--accent),0.25) 0%, rgba(255,255,255,0.06) 15%, rgba(255,255,255,0.00) 40%);
+      pointer-events:none;
+      mix-blend-mode:screen;
+      opacity:.9;
+      transition:opacity .3s;
+    }
+    .title{
+      position:absolute;
+      bottom:14px;left:14px;
+      font-weight:700;
+      font-size:1rem;
+      z-index:2;
+      text-shadow:0 4px 12px rgba(0,0,0,0.6);
+      transform:translateZ(60px);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S4</div>
+        <div><h1>HAUQALA 2025</h1></div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html">Results</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="gallery.html" class="active">Gallery</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h3>HAUQALA '25 — Gallery</h3>
+      <div class="grid">
+        <!-- you can replace image URLs freely -->
+        <div class="card"><div class="inner"><img src="batch22/wdwdwdwd.jpg"><div class="shine"></div><div class="title">Sunset</div></div></div>
+        <div class="card"><div class="inner"><img src="batch22/mg.jpg"><div class="shine"></div><div class="title">Stars</div></div></div>
+        <div class="card"><div class="inner"><img src="batch22/IMG_20241101_081438_080.jpg"><div class="shine"></div><div class="title">Ocean</div></div></div>
+        <div class="card"><div class="inner"><img src="batch22/khl.jpg"><div class="shine"></div><div class="title">Dream</div></div></div>
+        <div class="card"><div class="inner"><img src="batch22/khl.jpg"><div class="shine"></div><div class="title">Dream</div></div></div>
+        <div class="card"><div class="inner"><img src="batch22/khl.jpg"><div class="shine"></div><div class="title">Dream</div></div></div>
+        <div class="card"><div class="inner"><img src="batch22/khl.jpg"><div class="shine"></div><div class="title">Dream</div></div></div>
+        <div class="card"><div class="inner"><img src="/housing/batch22/IMG-20241010-WA0027.jpg"><div class="shine"></div><div class="title">Dream</div></div></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    document.querySelectorAll('.card').forEach(card=>{
+      const inner=card.querySelector('.inner');
+      const img=card.querySelector('img');
+      const shine=card.querySelector('.shine');
+      const maxRotate=12, move=20;
+      card.addEventListener('mousemove',e=>{
+        const r=card.getBoundingClientRect();
+        const x=e.clientX-r.left, y=e.clientY-r.top;
+        const px=(x/r.width-.5)*2, py=(y/r.height-.5)*2;
+        const rotY=-px*maxRotate, rotX=py*maxRotate;
+        inner.style.transform=`rotateX(${rotX}deg) rotateY(${rotY}deg) scale(1.03)`;
+        img.style.transform=`translateX(${-px*move}px) translateY(${-py*move}px) scale(1.06)`;
+        shine.style.background=`radial-gradient(600px 200px at ${x}px ${y}px, rgba(var(--accent),0.25) 0%, rgba(255,255,255,0.06) 15%, rgba(255,255,255,0) 40%)`;
+      });
+      card.addEventListener('mouseleave',()=>{
+        inner.style.transform='rotateX(0) rotateY(0) scale(1)';
+        img.style.transform='translate(0,0) scale(1.06)';
+      });
+    });
+  </script>
+</body>
+</html>

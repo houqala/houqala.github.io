@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Downloads | HAUQALA 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      /* PROFESSIONAL COLOR PALETTE */
+      --bg: #0d1117; 
+      --card: #161b22; 
+      --glass: rgba(30, 35, 42, 0.8); 
+      --accent: #58a6ff; 
+      --accent2: #4f80e0; 
+      --gold: #ffb400; 
+      --text: #c9d1d9; 
+      --text-primary: #f0f6fc;
+      --shadow: 0 4px 16px rgba(0,0,0,0.5); 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none;transition:.2s;}
+    a:hover{color:var(--text-primary);}
+    .wrap{max-width:1240px;margin:auto;padding:0 20px;}
+
+    /* Header and Navigation */
+    header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+    .brand{display:flex;align-items:center;gap:16px;}
+    .logo{width:50px;height:50px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--text-primary);box-shadow:0 0 10px rgba(88, 166, 255, 0.4);}
+    .brand h1{font-size:1.4rem;font-weight:800;color:var(--text-primary);}
+    nav{display:flex;gap:8px;}
+    nav a{padding:8px 14px;border-radius:6px;font-weight:600;transition:.3s;color:var(--text);border:2px solid transparent;}
+    nav a:hover{color:var(--accent);}
+    nav a.active{color:var(--accent);border-color:var(--accent);}
+
+    .section{padding:60px 0;}
+    .section h3{font-size:2.4rem;font-weight:800;margin-bottom:20px;color:var(--text-primary);}
+    
+    /* Download Grid */
+    .download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px;}
+    .download-item{
+      background:var(--card);
+      padding:24px;
+      border-radius:8px;
+      border:1px solid #282c34;
+      box-shadow:none;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+      transition:transform 0.2s;
+    }
+    .download-item:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+    .download-item i{font-size:3rem;margin-bottom:12px;color:var(--accent);}
+    .download-item h4{font-size:1.2rem;color:var(--text-primary);margin-bottom:10px;}
+    .download-item p{font-size:0.9rem;opacity:0.8;margin-bottom:15px;}
+    
+    .btn-download{
+        background:linear-gradient(90deg,var(--accent),var(--accent2));
+        color:var(--text-primary);
+        padding:10px 24px;
+        border:none;border-radius:6px;
+        font-weight:700;cursor:pointer;transition:.3s;
+        text-transform:uppercase;
+        font-size:0.9rem;
+        box-shadow:0 4px 10px rgba(88, 166, 255, 0.3);
+    }
+    .btn-download:hover{transform:translateY(-1px);box-shadow:0 6px 15px rgba(88, 166, 255, 0.5);}
+
+    /* Modal Styles */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:1000;}
+    .modal.open{display:flex;}
+    .modal .inner{background:var(--card);padding:24px;border-radius:8px;max-width:800px;width:92%;max-height:88vh;overflow:auto;box-shadow:var(--shadow);border:1px solid var(--accent2);}
+    .close{float:right;font-weight:800;cursor:pointer;font-size:1.4rem;color:var(--text);padding:4px 8px;}
+
+    @media(max-width:768px){
+      header{flex-direction:column;align-items:flex-start;padding-bottom:10px;}
+      nav{margin-top:15px; width:100%; justify-content: space-around;}
+      nav a{padding: 6px 10px;}
+      .section{padding:40px 0;}
+      .section h3{font-size:2rem;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S4</div>
+        <div><h1>HAUQALA 2025</h1></div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html">Results</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="downloads.html" class="active">Downloads</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h3>Downloads</h3>
+      <p style="margin-bottom:30px;">Access all official documents, program schedules, and media related to HAUQALA 2025.</p>
+
+      <div class="download-grid">
+        
+        <div class="download-item">
+          <i class="fas fa-file-pdf"></i>
+          <h4>Event Program Schedule</h4>
+          <p>Download the official program list in PDF format.</p>
+          <a href="Program.pdf" download id="program-btn" class="btn-download">
+            <i class="fas fa-download" style="font-size:0.9rem; margin-right:8px;"></i>
+            Download PDF
+          </a>
+        </div>
+        
+        <div class="download-item">
+          <i class="fas fa-video"></i>
+          <h4>Documentaries </h4>
+          <p>Watch each teams creative documentaries .</p>
+          <button id="doc-btn" class="btn-download" style="background:var(--card); color:var(--accent); border:1px solid var(--accent);">
+             View Media
+          </button>
+        </div>
+
+        
+
+      </div>
+    </section>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div id="modal-title" style="font-weight:800;font-size:1.4rem;color:var(--text-primary);"></div>
+        <div class="close" id="modal-close">X</div>
+      </div>
+      <div id="modal-body" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <script>
+    const modal=document.getElementById('modal'), title=document.getElementById('modal-title'), body=document.getElementById('modal-body');
+    document.getElementById('modal-close').onclick=()=>{modal.classList.remove('open');};
+    modal.onclick=e=>{if(e.target===modal) modal.classList.remove('open');};
+    function open(t,h){title.textContent=t; body.innerHTML=h; modal.classList.add('open');}
+
+    // *** REMOVED JS FOR PROGRAM BUTTON AS IT'S NOW A DIRECT DOWNLOAD LINK ***
+    
+    document.getElementById('doc-btn').onclick=()=>{
+      open('Documentaries', `
+        <div style="display:grid;gap:16px;">
+          <div style="background:var(--card); padding:12px; border-radius:6px; border:1px solid #282c34;">
+            <strong>Doc 1: Unity in Art</strong>
+            <video controls style="width:100%;margin-top:8px;border-radius:6px;" src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video>
+            <a href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" download style="display:inline-block; margin-top:8px; color:var(--gold); font-size:0.9rem;">Download Video</a>
+          </div>
+          <div style="background:var(--card); padding:12px; border-radius:6px; border:1px solid #282c34;">
+            <strong>Doc 2: Voices of Faith</strong>
+            <video controls style="width:100%;margin-top:8px;border-radius:6px;" src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4"></video>
+            <a href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" download style="display:inline-block; margin-top:8px; color:var(--gold); font-size:0.9rem;">Download Video</a>
+          </div>
+        </div>
+      `);
+    };
+  </script>
+</body>
+</html>

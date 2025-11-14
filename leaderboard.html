@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leaderboard | HAUQALA 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root{
+      /* PROFESSIONAL COLOR PALETTE */
+      --bg: #0d1117; 
+      --card: #161b22; 
+      --glass: rgba(30, 35, 42, 0.8); 
+      --accent: #58a6ff; 
+      --accent2: #4f80e0; 
+      --gold: #ffb400; 
+      --text: #c9d1d9; 
+      --text-primary: #f0f6fc;
+      --shadow: 0 4px 16px rgba(0,0,0,0.5); 
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none;transition:.2s;}
+    a:hover{color:var(--text-primary);}
+    
+    /* WRAPPER AND HEADER */
+    .wrap{max-width:1240px;margin:0 auto;padding:0 20px;}
+    header{display:flex;align-items:center;justify-content:space-between;padding:20px 0;}
+    .brand{display:flex;align-items:center;gap:12px;}
+    .logo{
+      width:50px;height:50px;border-radius:6px;background:var(--accent);
+      display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:var(--text-primary);
+      box-shadow:0 0 10px rgba(88, 166, 255, 0.4);
+    }
+    .brand h1{font-size:1.4rem;font-weight:700;color:var(--text-primary);margin:0;}
+
+    /* NAVIGATION */
+    nav{display:flex;gap:4px;}
+    nav a{
+      padding:8px 14px;border-radius:6px;
+      font-weight:600;transition:.3s;color:var(--text);
+      background:transparent;
+      border:2px solid transparent; 
+    }
+    nav a:hover{color:var(--accent);}
+    nav a.active{color:var(--accent);border-color:var(--accent);}
+
+    .section{padding:60px 0;}
+    .section h3{font-size:2.4rem;font-weight:800;margin-bottom:20px;color:var(--text-primary);}
+    
+    /* LEADERBOARD GRID */
+    .leaderboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+    .player{
+      background:var(--card);
+      padding:16px;border-radius:8px;
+      display:flex;align-items:center;gap:14px;
+      cursor:pointer;transition:.2s;
+      box-shadow:none;
+      border:1px solid #282c34;
+    }
+    .player:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 10px rgba(0,0,0,0.3);
+    }
+    .avatar{
+      width:48px;height:48px;border-radius:50%;
+      background:var(--accent);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--text-primary);font-weight:800;font-size:1rem;
+      border:2px solid transparent;
+    }
+    /* Special colors for top ranks - These will apply to the first few participants in the array, all showing 0 pts */
+    .player:nth-child(1) .avatar{background:var(--gold); color:#111; border-color:#fff;}
+    .player:nth-child(2) .avatar{background:#c0c0c0; color:#111;}
+    .player:nth-child(3) .avatar{background:#cd7f32; color:#111;}
+
+    .player h4{color:var(--text-primary); margin-bottom: 2px;}
+
+    /* Search and Button */
+    .search-group{
+        display:flex;gap:12px;align-items:center;margin-bottom:20px;
+        background:var(--card);border-radius:8px;padding:8px 16px;
+        border:1px solid #282c34;
+    }
+    .search{
+        flex:1; padding:8px 0; border:none; outline:none; 
+        background:transparent; color:var(--text); font-size:16px;
+    }
+    .btn{
+        background:linear-gradient(90deg,var(--accent),var(--accent2));
+        color:var(--text-primary);
+        padding:8px 20px;
+        border:none;border-radius:6px;
+        font-weight:700;cursor:pointer;transition:.3s;
+        box-shadow:0 4px 10px rgba(88, 166, 255, 0.3);
+    }
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 15px rgba(88, 166, 255, 0.5);}
+
+    /* Modal */
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.8);backdrop-filter:blur(6px);z-index:1000;}
+    .modal.open{display:flex;}
+    .modal .inner{background:var(--card);padding:24px;border-radius:8px;max-width:600px;width:92%;max-height:88vh;overflow:auto;box-shadow:var(--shadow);border:1px solid var(--accent2);}
+    .close{float:right;font-weight:800;cursor:pointer;font-size:1.4rem;color:var(--text);padding:4px 8px;}
+    
+    /* Modal Table Styling for Programs */
+    table{width:100%;border-collapse:collapse;margin-top:16px;border-radius:6px;overflow:hidden;}
+    th,td{padding:12px;text-align:left;font-size:0.95rem;}
+    th{background:var(--glass);color:var(--accent);font-weight:700;text-transform:uppercase;}
+    td{border-bottom:1px solid #282c34; color:var(--text);}
+    tr:last-child td{border-bottom:none;}
+    
+    /* Highlight places in the table */
+    td:last-child{font-weight:700;text-align:right;}
+    /* Removed specific color styles for 1st, 2nd, 3rd, A, B to avoid styling the new "no" value */
+    td[data-place="1st"], td[data-place="2nd"], td[data-place="3rd"], td[data-place="A"], td[data-place="B"] { /* Default styles apply to 'no' */ }
+
+
+    @media(max-width:900px){
+      header{flex-direction:column;align-items:flex-start;padding-bottom:10px;}
+      nav{margin-top:15px; width:100%; justify-content: space-around;}
+      nav a{margin:0 5px; padding: 6px 10px;}
+      .section{padding:40px 0;}
+      .section h3{font-size:2rem;}
+      .search-group{flex-direction:column; align-items: stretch;}
+      .search-group > div{margin-left:0 !important; text-align:center;}
+      .btn{width:100%;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S4</div>
+        <div><h1>HAUQALA 2025</h1></div>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html">Results</a>
+        <a href="leaderboard.html" class="active">Leaderboard</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h3>Leaderboard</h3>
+      <div class="search-group">
+        <input id="leader-search" class="search" placeholder="Search participant…">
+        <button class="btn" id="leader-search-btn">Search</button>
+        <div style="margin-left:auto;font-size:0.9rem;opacity:0.8;">(Click name to view programs)</div>
+      </div>
+      
+      <div id="no-participants-message" style="text-align:center; padding:50px; opacity:0.7; font-size:1.2rem; display:none;">
+          No participants have been registered yet.
+      </div>
+
+      <div class="leaderboard" id="leaderboard-list"></div>
+    </section>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="inner">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <div id="modal-title" style="font-weight:800;font-size:1.4rem;color:var(--text-primary);"></div>
+        <div class="close" id="modal-close">X</div>
+      </div>
+      <div id="modal-body" style="margin-top:16px;"></div>
+    </div>
+  </div>
+
+  <script>
+  // PARTICIPANTS RESTORED AND UPDATED WITH PROGRAM DATA
+  const participants = [
+    { name: "Khaleel", programs: [{program:"science master",place:"no"},{program:"maths talent",place:"no"},{program:"speech urd",place:"no"},{program:"pencildrawing",place:"no"}] },
+    { name: "Shahul", programs: [{program:"song eng",place:""},{program:"qawwali",place:"no"},{program:"song mlm",place:"no"},{program:"mashup",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"math talent",place:"no"}] },
+    { name: "Shifan", programs: [{program:"poem mlm",place:"no"},{program:"va'z",place:"no"},{program:"math talent",place:"no"},{program:"speech urd",place:"no"},{program:"speech arb",place:"no"},{program:"ithihad talent",place:"no"},{program:"munazara arb",place:"no"},{program:"instant magazine and newspaper",place:"no"},{program:"essay mlm",place:"no"}] },
+    { name: "Anfad", programs: [{program:"science master",place:"no"},{program:"gk talent",place:"no"},{program:"ithihad talent",place:"no"}] },
+    { name: "Arif", programs: [{program:"essay mlm",place:"no"},{program:"qira'th",place:"no"},{program:"va'z",place:"no"},{program:"math talent",place:"no"},{program:"speech arb",place:"no"},{program:"munazara arb",place:"no"},{program:"ithihad talent",place:"no"}] },
+    { name: "Fabin", programs: [{program:"science master",place:"no"},{program:"gk talent",place:"no"},{program:"qawwali",place:"no"},{program:"mashup",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"pencildrawing",place:"no"},{program:"speech eng",place:"no"}] },
+    { name: "Musthafa.K", programs: [{program:"speech eng",place:"no"},{program:"qira'th",place:"no"},{program:"song urd",place:"no"},{program:"song arb",place:"no"},{program:"qawwali",place:"no"},{program:"ithihad talent",place:"no"},{program:"science master",place:"no"},{program:"munazara arb",place:"no"}] },
+    { name: "Ajsal", programs: [{program:"speech arb",place:"no"},{program:"speech urd",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"song arb",place:"no"},{program:"instant magazine",place:"no"},{program:"munazara arb",place:"no"},{program:"math talent",place:"no"},{program:"ithihad talent",place:"no"},{program:"mashup",place:"no"},{program:"qawwali",place:"no"}] },
+    { name: "Ehsan", programs: [{program:"poem mlm",place:"no"},{program:"short story mlm",place:"no"},{program:"junction speech mlm",place:"no"},{program:"song mlm",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"qawwali",place:"no"},{program:"speechandsong",place:"no"}] },
+    { name: "Musthafa.M", programs: [{program:"essay mlm",place:"no"},{program:"poem mlm",place:"no"},{program:"junction speech mlm",place:"no"},{program:"gk talent",place:"no"},{program:"va'z",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"munazara arb",place:"no"},{program:"ithihad talent",place:"no"}] },
+    { name: "Hashim", programs: [{program:"song arb",place:"no"},{program:"song mlm",place:"no"},{program:"qira'th",place:"no"},{program:"qawwali",place:"no"},{program:"mashup",place:"no"},{program:"speechandsong",place:"no"},{program:"speech arb",place:"no"}] },
+    { name: "Nihad", programs: [{program:"poem mlm",place:"no"},{program:"essay mlm",place:"no"}] },
+    { name: "Hisham", programs: [{program:"essay mlm",place:"no"},{program:"poem mlm",place:"no"},{program:"short story mlm",place:"no"},{program:"junction speech",place:"no"},{program:"gk talent",place:"no"},{program:"instant magazine and newspaper",place:"no"}] },
+    { name: "Mubarak", programs: [] },
+    { name: "Mishab", programs: [] },
+    { name: "Nujoom", programs: [{program:"ithihad talent",place:"no"},{program:"qira'th",place:"no"},{program:"song urd",place:"no"},{program:"math talent",place:"no"},{program:"speech urd",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"speechandsong",place:"no"},{program:"mashup",place:"no"},{program:"munazara arb",place:"no"},{program:"instant magazine and newspaper",place:"no"},{program:"qawwali",place:"no"},{program:"pencildrawing",place:"no"}] },
+    { name: "Shahabas", programs: [{program:"qawwali",place:"no"},{program:"mashup",place:"no"},{program:"pencildrawing",place:"no"},{program:"short story mlm",place:"no"},{program:"qira'th",place:"no"},{program:"speech urd",place:"no"},{program:"instant magazine and newspaper",place:"no"}] },
+    { name: "Sinan.PP", programs: [{program:"song urd",place:"no"},{program:"song mlm",place:"no"},{program:"mashup",place:"no"},{program:"munazara arb",place:"no"},{program:"qawwali",place:"no"},{program:"speechandsong",place:"no"},{program:"qira'th",place:"no"},{program:"speech arb",place:"no"}] },
+    { name: "Irfan", programs: [{program:"qawwali",place:"no"},{program:"mashup",place:"no"},{program:"pencildrawing",place:"no"},{program:"song mlm",place:"no"},{program:"song arb",place:"no"},{program:"instant newspaper and magazine",place:"no"},{program:"speech and song",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"speech arb",place:"no"},{program:"poem mlm",place:"no"}] },
+    { name: "Sinan.K", programs: [{program:"essay mlm",place:"no"},{program:"short story mlm",place:"no"},{program:"song eng",place:"no"},{program:"speech eng",place:"no"}] },
+    { name: "Ashiq", programs: [{program:"song eng",place:"no"},{program:"song mlm",place:"no"},{program:"munazara arb",place:"no"},{program:"speechandsong",place:"no"},{program:"instant newspaper",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"science master",place:"no"},{program:"math talent",place:"no"},{program:"gk talent",place:"no"},{program:"mashup",place:"no"},{program:"qawwali",place:"no"},{program:"va'z",place:"no"}] },
+    { name: "Rizwan", programs: [{program:"essay mlm",place:"no"},{program:"poem mlm",place:"no"},{program:"short story mlm",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"instant magazine and newspaper",place:"no"},{program:"ithihad talent",place:"no"},{program:"pencil drawing",place:"no"}] },
+    { name: "Adnan", programs: [{program:"gk talent",place:"no"},{program:"science master",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"mashup",place:"no"},{program:"qawwali",place:"no"},{program:"apeechandsong",place:"no"},{program:"pencil drawing",place:"no"}] },
+    { name: "Shameem", programs: [{program:"poem mlm",place:"no"},{program:"essay mlm",place:"no"},{program:"short story mlm",place:"no"},{program:"va'z",place:"no"},{program:"junction speech mlm",place:"no"},{program:"qira'th",place:"no"},{program:"instant magazine and newspaper",place:"no"}] },
+    { name: "Shammas", programs: [{program:"motivation speech mlm",place:"no"},{program:"junction speech mlm",place:"no"},{program:"song urd",place:"no"},{program:"qira'th",place:"no"},{program:"va'z",place:"no"},{program:"essay mlm",place:"no"}] },
+    { name: "Swalih.CK", programs: [{program:"song urd",place:"no"},{program:"song eng",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"mashup",place:"no"},{program:"qawwali",place:"no"}] },
+    { name: "Naeem", programs: [{program:"pencil drawing",place:"no"},{program:"short storymlm",place:"no"},{program:"instant magazine and newspaper",place:"no"},{program:"padhyaparayanam",place:"no"}] },
+    { name: "Nahid", programs: [{program:"munazara arb",place:"no"},{program:"instant newspaper",place:"no"},{program:"ithihad talent",place:"no"},{program:"gk talent",place:"no"},{program:"speech eng",place:"no"},{program:"song eng",place:"no"}] },
+    { name: "Raifan", programs: [{program:"science master",place:"no"},{program:"gk talent",place:"no"},{program:"qawwali",place:"no"},{program:"mashup",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"pencildrawing",place:"no"},{program:"speech eng",place:"no"}] },
+    { name: "Sabeel", programs: [{program:"short story mlm",place:"no"},{program:"junction speech mlm",place:"no"},{program:"va'z",place:"no"},{program:"motivation speech mlm",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"instant magazine and newspaper",place:"no"}] },
+    { name: "Syd Hashir", programs: [{program:"pencil drawing",place:"no"},{program:"song arb",place:"no"},{program:"qira'th",place:"no"},{program:"speech urd",place:"no"},{program:"padhyaparayanam",place:"no"},{program:"qawwali",place:"no"},{program:"mashup",place:"no"}] },
+    { name: "Swalih.K", programs: [{program:"short story mlm",place:"no"},{program:"poem mlm",place:"no"},{program:"gk talent",place:"no"},{program:"va'z",place:"no"},{program:"maths talent",place:"no"},{program:"science master",place:"no"},{program:"ithihad talent",place:"no"}] }
+  ];
+
+  // ==============================================================
+  // 2. POINT CALCULATION
+  // Note: The 'no' place will map to 0 points, correctly initializing the leaderboard to 0.
+  // ==============================================================
+  const pointMap = { "1st A":10, "2nd A":7, "3rd a":5, "A":3, "B":2 };
+  participants.forEach(p => {
+    p.pts = p.programs.reduce((sum, pr) => sum + (pointMap[pr.place] || 0), 0);
+  });
+
+  // ==============================================================
+  // 3. RENDER LEADERBOARD
+  // ==============================================================
+  const container = document.getElementById('leaderboard-list');
+  const searchInput = document.getElementById('leader-search');
+  const searchBtn = document.getElementById('leader-search-btn');
+  const noParticipantsMessage = document.getElementById('no-participants-message');
+
+  function render(list) {
+    container.innerHTML = '';
+    
+    if (list.length === 0) {
+        noParticipantsMessage.style.display = 'block';
+        return;
+    } else {
+        noParticipantsMessage.style.display = 'none';
+    }
+
+    // The list will sort by points (all 0) then by original array order
+    const ordered = list.slice().sort((a, b) => b.pts - a.pts);
+    ordered.forEach((p, index) => {
+      const div = document.createElement('div');
+      div.className = 'player';
+      
+      div.innerHTML = ` 
+        <div class="avatar">${index + 1}</div>
+        <div>
+          <h4>${p.name}</h4>
+          <div style="opacity:.7">${p.pts} pts</div>
+        </div>`;
+      
+      div.onclick = () => openModal(
+        `${p.name} — ${p.pts} pts`,
+        p.programs.length
+          ? `<table>
+               <thead><tr><th>Program</th><th style="text-align:right;">Place/Grade</th></tr></thead>
+               <tbody>${p.programs.map(pr => 
+                   `<tr><td><i class="fas fa-dot-circle" style="font-size:10px; color:var(--accent); margin-right:8px;"></i>${pr.program}</td><td data-place="${pr.place}">${pr.place}</td></tr>`
+               ).join('')}</tbody>
+             </table>`
+          : `<p style="opacity:.7; text-align:center;">No programs registered.</p>`
+      );
+      container.appendChild(div);
+    });
+  }
+  render(participants);
+
+  // ==============================================================
+  // 4. SEARCH
+  // ==============================================================
+  function performSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    if (query === '') {
+      render(participants);
+      return;
+    }
+    const filtered = participants.filter(p => p.name.toLowerCase().includes(query));
+    render(filtered);
+  }
+
+  searchBtn.onclick = performSearch;
+
+  searchInput.addEventListener('keyup', e => {
+    if (e.key === 'Enter') {
+      performSearch();
+    } else if (searchInput.value.trim() === '') {
+      render(participants); 
+    }
+  });
+
+  // ==============================================================
+  // 5. MODAL
+  // ==============================================================
+  const modal = document.getElementById('modal');
+  const title = document.getElementById('modal-title');
+  const body = document.getElementById('modal-body');
+
+  document.getElementById('modal-close').onclick = () => modal.classList.remove('open');
+  modal.onclick = e => { if (e.target === modal) modal.classList.remove('open'); };
+
+  function openModal(t, h) {
+    title.textContent = t;
+    body.innerHTML = h;
+    modal.classList.add('open');
+  }
+</script>
+</body>
+</html>

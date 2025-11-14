@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Results | HAUQALA 2025</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      /* PROFESSIONAL COLOR PALETTE - Match with index/about/gallery/downloads */
+      --bg: #0d1117; /* Dark, deep background (like a dark mode professional app) */
+      --card: #161b22; /* Slightly lighter card/glass background */
+      --glass: rgba(30, 35, 42, 0.8); /* Darker, less distracting glass effect */
+      --accent: #58a6ff; /* A clean, modern blue for main accents */
+      --accent2: #4f80e0; /* Secondary blue for gradients/hover */
+      --gold: #ffb400; /* Keeping gold for prestige/awards */
+      --text: #c9d1d9; /* Lighter text for contrast */
+      --text-primary: #f0f6fc; /* Brightest text for headings */
+      --shadow: 0 4px 16px rgba(0,0,0,0.5); /* Sharper, modern shadow */
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html,body{height:100%;background:var(--bg);color:var(--text);}
+    a{color:var(--accent);text-decoration:none;transition:.2s;}
+    a:hover{color:var(--text-primary);}
+    .wrap{max-width:1240px;margin:auto;padding:0 20px;}
+
+    /* Header and Navigation Styles */
+    header{display:flex;align-items:center;justify-content:space-between;padding:24px 0;}
+    .brand{display:flex;align-items:center;gap:16px;}
+    .logo{width:50px;height:50px;border-radius:6px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;color:#fff;box-shadow:0 0 10px rgba(88, 166, 255, 0.4);}
+    .brand h1{font-size:1.4rem;font-weight:800;color:var(--text-primary);}
+    nav{display:flex;gap:8px;}
+    nav a{padding:8px 14px;border-radius:6px;font-weight:600;transition:.3s;color:var(--text);border:2px solid transparent;}
+    nav a:hover{color:var(--accent);}
+    nav a.active{color:var(--accent);border-color:var(--accent);}
+    
+    .section{padding:40px 0;}
+    .section h3{font-size:2.4rem;font-weight:800;margin-bottom:20px;color:var(--text-primary);}
+    
+    /* Search Bar and Button */
+    .search-container{
+      display:flex;gap:12px;align-items:center;
+      background:var(--card);border-radius:8px;padding:8px 16px;
+      border:1px solid #282c34;
+      margin-bottom: 20px;
+    }
+    .search-container input{border:none;outline:none;flex:1;font-size:16px;background:transparent;color:var(--text);}
+    .search-container input::placeholder{color:rgba(255,255,255,0.6);}
+    .search-btn{
+        background:linear-gradient(90deg,var(--accent),var(--accent2));
+        color:var(--text-primary);
+        padding:8px 20px;
+        border:none;border-radius:6px;
+        font-weight:700;cursor:pointer;transition:.3s;
+        box-shadow:0 4px 10px rgba(88, 166, 255, 0.3);
+    }
+    .search-btn:hover{transform:translateY(-1px);box-shadow:0 6px 15px rgba(88, 166, 255, 0.5);}
+
+
+    /* Results Grid and Cards */
+    .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;padding-bottom:40px;}
+    .result-card{
+      background:var(--card);
+      border-radius:8px;
+      padding:20px;
+      box-shadow:none;
+      transition:transform .25s ease, box-shadow .25s ease; 
+      border:1px solid #282c34;
+    }
+    .result-card:hover{transform:translateY(-2px);box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+
+    .program-title{font-size:12px;font-weight:600;color:var(--accent);letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;}
+    .program-name{font-size:1.4rem;font-weight:800;margin-bottom:8px;color:var(--text-primary);}
+    .program-date{font-size:13px;color:var(--text);opacity:0.7;margin-bottom:14px;}
+
+    .prize{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:15px;}
+    .prize i{font-size:16px;}
+    .prize span.name{flex:1;font-weight:500;color:var(--text);}
+    .badge{display:inline-block;padding:4px 10px;border-radius:50px;font-size:12px;font-weight:700;}
+    .badge.a{background:#48bb78; color:#0d1117;} /* Green */
+    .badge.b{background:#4299e1; color:#0d1117;} /* Light Blue */
+
+    .grade-winners{margin-top:16px;padding-top:16px;border-top:1px dashed rgba(255,255,255,0.1);}
+    .grade-winners h4{font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:8px;display:flex;align-items:center;gap:6px;}
+    .grade-winners h4 i{color:var(--gold);}
+    
+    .awaiting-results {
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+        font-size: 0.95rem;
+    }
+
+    @media(max-width:768px){
+      .results-grid{grid-template-columns:1fr;}
+      .search-container{flex-direction:column; align-items: stretch;}
+      .search-btn{width:100%;}
+      nav{margin-top:15px; width:100%; justify-content: space-around;}
+      nav a{padding: 6px 10px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">S25</div>
+        <h1>HAUQALA 2025</h1>
+      </div>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="results.html" class="active">Results</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="downloads.html">Downloads</a>
+      </nav>
+    </header>
+
+    <section class="section">
+      <h3>Official Results</h3>
+
+      <div class="search-container">
+        <input type="text" id="search-input" placeholder="Search by program or category...">
+        <button class="search-btn" id="search-btn">Search</button>
+      </div>
+
+      <div class="results-grid" id="results-grid"></div>
+    </section>
+  </div>
+
+  <script>
+    // Data remains intact with cleared names ("")
+    const resultsData = [
+      {
+        category: "", program: "ESSAY MLM", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "POEM MLM", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "SHORT STORY MLM", date: "23/10/2025",
+        places: [
+          { name: ".", college: "." },
+          { name: ".", college: "." },
+          { name: ".", college: "." }
+        ],
+        gradeWinners: [{ name: ".", college: "." }]
+      },
+      {
+        category: "", program: "JUNCTION SPCH MLM", date: "23/10/2025",
+        places: [
+          { name: ".", college: "." },
+          { name: ".", college: "." },
+          { name: ".", college: "." }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "SONG MLM", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "SPEECH (ENG)", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "GK TALENT", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },   {
+        category: "", program: "QIRATH", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "VA'Z", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "SONG URD", date: "23/10/2025",
+        places: [
+          { name: ".", college: "." },
+          { name: ".", college: "." },
+          { name: ".", college: "." }
+        ],
+        gradeWinners: [{ name: ".", college: "." }]
+      },
+      {
+        category: "", program: "SCIENCE MASTER", date: "23/10/2025",
+        places: [
+          { name: ".", college: "." },
+          { name: ".", college: "." },
+          { name: ".", college: "." }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "MATH TALENT", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "SPEECH (ARB)", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "MOTIVATION SPEECH", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },   {
+        category: "", program: "SPEECH URD", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "PADHYA PARAYANAM", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "SONG ENG", date: "23/10/2025",
+        places: [
+          { name: ".", college: "." },
+          { name: ".", college: "." },
+          { name: ".", college: "." }
+        ],
+        gradeWinners: [{ name: ".", college: "." }]
+      },
+      {
+        category: "", program: "INSTANT MAGAZINE", date: "23/10/2025",
+        places: [
+          { name: ".", college: "." },
+          { name: ".", college: "." },
+          { name: ".", college: "." }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "INSTANT NEWSPAPER", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "SPEECH & SONG)", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "QAWWALI", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "MASHUP", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "MUNAZARA ARB", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "PROGRAM SETTING", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },{
+        category: "", program: "TV NEWS READING", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+      {
+        category: "", program: "MAGAZINE CONTEST", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: []
+      },
+      {
+        category: "", program: "MODALING CONTEST ", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      }, {
+        category: "", program: "DOCUMENTARY", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      }, {
+        category: "", program: "EXPO", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      }, {
+        category: "", program: "ITHIHAD TALENT", date: "23/10/2025",
+        places: [
+          { name: "", college: "" },
+          { name: "", college: "" },
+          { name: "", college: "" }
+        ],
+        gradeWinners: [{ name: "", college: "" }]
+      },
+    ];
+
+    const trophyIcons = ['fas fa-trophy', 'fas fa-medal', 'fas fa-award'];
+
+    function renderCards(data) {
+      const grid = document.getElementById('results-grid');
+      grid.innerHTML = '';
+      data.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'result-card';
+
+        let html = `
+          <div class="program-title">${item.category || ' '}</div>
+          <div class="program-name">${item.program || 'Program Name'}</div>
+          <div class="program-date">Date: ${item.date}</div>
+        `;
+
+        item.places.forEach((p, i) => {
+          const rankText = i === 0 ? '1st' : i === 1 ? '2nd' : '3rd';
+          const icon = trophyIcons[i] || trophyIcons[2];
+          const color = i === 0 ? 'var(--gold)' : i === 1 ? 'var(--text)' : 'var(--text)'; // Top place gold, others text color
+          
+          // Check for cleared or placeholder data
+          const isCleared = !p.name || p.name === '.';
+          const prizeDisplay = isCleared ? 
+            `<span class="awaiting-results">Awaiting Results...</span>` : 
+            `${p.name}${p.college ? ` (${p.college})` : ''}`;
+
+          html += `
+            <div class="prize">
+              <i class="${icon}" style="color:${color}"></i>
+              <span class="name"><strong>${rankText} Place:</strong> ${prizeDisplay}</span>
+            </div>
+          `;
+        });
+
+        if (item.gradeWinners.length > 0) {
+          html += `<div class="grade-winners">
+            <h4><i class="fas fa-star"></i> Grade Winners</h4>`;
+          item.gradeWinners.forEach(gw => {
+            const isCleared = !gw.name || gw.name === '.';
+            const gradeDisplay = isCleared ? 
+                `<span class="awaiting-results">Awaiting Results...</span>` :
+                `${gw.name}${gw.college ? ` (${gw.college})` : ''}`;
+
+            html += `
+              <div class="prize">
+                <span class="name">${gradeDisplay}</span>
+              </div>
+            `;
+          });
+          html += `</div>`;
+        }
+
+        card.innerHTML = html;
+        grid.appendChild(card);
+      });
+      
+      if (data.length === 0) {
+        grid.innerHTML = '<div style="text-align:center; padding:50px; opacity:0.7; font-size:1.2rem; grid-column: 1 / -1;">No results found for your search.</div>';
+      }
+    }
+
+    // Search
+    document.getElementById('search-btn').addEventListener('click', filterResults);
+    document.getElementById('search-input').addEventListener('keypress', e => {
+      if (e.key === 'Enter') filterResults();
+    });
+
+    function filterResults() {
+      const query = document.getElementById('search-input').value.trim().toLowerCase();
+      if (!query) {
+        renderCards(resultsData);
+        return;
+      }
+      const filtered = resultsData.filter(item =>
+        (item.program && item.program.toLowerCase().includes(query)) ||
+        (item.category && item.category.toLowerCase().includes(query))
+      );
+      renderCards(filtered);
+    }
+
+    // Initial render
+    renderCards(resultsData);
+  </script>
+</body>
+</html>
